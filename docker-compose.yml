@@ -73,7 +73,7 @@ services:
       context: .
       dockerfile: docker/frontend/dev/Dockerfile 
     volumes:
-      - './packages/frondend:/app'
+      - './packages/frontend:/app'
       - '/app/node_modules'
     ports: 
       - 8888:8888

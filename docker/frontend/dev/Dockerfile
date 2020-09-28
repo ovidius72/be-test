@@ -8,12 +8,12 @@ WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 
 # install app dependencies
-COPY packages/frondend/package.json ./
-COPY packages/frondend/package-lock.json ./
+COPY packages/frontend/package.json ./
+COPY packages/frontend/package-lock.json ./
 RUN npm install
 
 # add app
-COPY packages/frondend/ ./
+COPY packages/frontend/ ./
 RUN npm run add-locale en it
 RUN npm run extract:clean
 RUN npm run compile
