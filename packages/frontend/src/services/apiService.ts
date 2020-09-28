@@ -1,10 +1,12 @@
 import {
   IERPProfile,
+  IOrder,
+  IOrderDetails,
   ITokenApiModel,
   IUserApi,
   IUserLoginCredentials
 } from "src/entities/apiModels";
-import {IOrder} from "src/features/orders/orders.slice";
+
 import {Auth} from "src/services/auth";
 import {BASE_API_PATH, HTTP_MODE} from "src/services/constants";
 import baseWretch from "wretch";
@@ -91,7 +93,7 @@ const fromUsers = (...args: string[]) => pathFrom(Paths.users, ...args);
 // const fromSuppliers = (...args: string[]) => pathFrom(Paths.suppliers, ...args);
 // const fromShippers = (...args: string[]) => pathFrom(Paths.shippers, ...args);
 // const fromRegion = (...args: string[]) => pathFrom(Paths.region, ...args);
-// const fromOrderDetails = (...args: string[]) => pathFrom(Paths.order_details, ...args);
+const fromOrderDetails = (...args: string[]) => pathFrom(Paths.order_details, ...args);
 // const fromCategories = (...args: string[]) =>
 //   pathFrom(Paths.categories, ...args);
 // const fromProducts = (...args: string[]) => pathFrom(Paths.products, ...args);
@@ -144,6 +146,12 @@ export const pickErrorWithFallback = (err: any, fallbackErrorText: string) => {
 
 // API ENDPOINTS
 export const endpoints = {
+  orderDetails: {
+    getByOrderId: (orderId: string) => apiUrlBuilder(fromOrderDetails())
+    .query(`filter[include]=product&filter[include]=order&filter[where][order_id]=${orderId}`)
+    .get()
+    .json<IOrderDetails[]>(),
+  },
   orders: {
     getByUserId:  (customerErpId: string) => apiUrlBuilder(fromOrders())
     .query(`filter[where][customer_id]=${customerErpId}`)

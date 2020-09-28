@@ -3,7 +3,6 @@ import {IUserApi, IERPProfile} from "src/entities/apiModels";
 import {ApiService} from "src/services/apiService";
 import {Auth} from "src/services/auth";
 import {AppDispatch, RootState} from "src/store/store";
-import {LOGIN_SLICE_NAME} from "./login.slice";
 
 export const loginThunk = createAsyncThunk<
   { user: IUserApi; erpProfile: IERPProfile },
@@ -12,7 +11,7 @@ export const loginThunk = createAsyncThunk<
     dispatch: AppDispatch;
     state: RootState;
   }
->(`${LOGIN_SLICE_NAME}/login`, async ({ email, password }, thunkApi) => {
+>(`login/login`, async ({ email, password }, thunkApi) => {
   try {
     const { user } = await Auth.login({ email, password });
     const erpProfile = await ApiService.customers.getOne(user.erpId);
@@ -29,7 +28,7 @@ export const loginWithToken = createAsyncThunk<
     dispatch: AppDispatch;
     state: RootState;
   }
->(`${LOGIN_SLICE_NAME}/fromToken`, async (_, thunkApi) => {
+>(`login/fromToken`, async (_, thunkApi) => {
   try {
     const token = Auth.getToken();
     if (token && token.id) {
@@ -52,7 +51,7 @@ export const logoutThunk = createAsyncThunk<
     dispatch: AppDispatch;
     state: RootState;
   }
->(`${LOGIN_SLICE_NAME}/logout`, async () => {
+>(`login/logout`, async () => {
   try {
     const response = await ApiService.user.logout();
     Auth.deleteToken();

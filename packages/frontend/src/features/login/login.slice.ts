@@ -2,7 +2,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IERPProfile, IUserApi} from "src/entities/apiModels";
 import {logoutThunk, loginWithToken, loginThunk} from "./login.thunks";
 
-export const LOGIN_SLICE_NAME = "@login";
+export const LOGIN_SLICE_NAME = "login";
 
 export type ILoginState = {
   user: IUserApi | undefined;

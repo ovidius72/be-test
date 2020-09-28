@@ -25,17 +25,22 @@ const Routes: React.FC = () => (
         condition={(p) => !p.successful}
         exact
         path="/"
-        render={() => <AsyncPage page="Login" />}
+        render={() => <AsyncPage page="LoginPage" />}
         redirectOnMismatch="/dashboard"
       />
       <AuthenticatedRoute
         path="/dashboard"
-        render={() => <AsyncPage page="Dashboard" />}
+        render={() => <AsyncPage page="DashboardPage" />}
         redirectOnMismatch="/"
       />
       <AuthenticatedRoute
         path="/orders"
-        render={() => <AsyncPage page="Orders" />}
+        render={() => <AsyncPage page="OrdersPage" />}
+        redirectOnMismatch="/"
+      />
+      <AuthenticatedRoute
+        path="/order-details/:id"
+        render={() => <AsyncPage page="OrderDetailsPage" />}
         redirectOnMismatch="/"
       />
       <Route component={() => <div>Not Found</div>} />
