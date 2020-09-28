@@ -1,7 +1,7 @@
 import { Trans } from "@lingui/react";
 import React, { useCallback } from "react";
 import { Icon } from "semantic-ui-react";
-import { logoutThunk } from "src/features/login/login.slice";
+import {logoutThunk} from "src/features/login/login.thunks";
 import { useAppDispatch, userAppSelector } from "src/store/store";
 
 const LoginContatinerComponent = () => {

@@ -1,23 +1,23 @@
-import { I18nProvider } from "@lingui/react";
-import { ConnectedRouter } from "connected-react-router";
+import {I18nProvider} from "@lingui/react";
+import {ConnectedRouter} from "connected-react-router";
 import "core-js";
-import { ThemeProvider } from "emotion-theming";
-import React, { useCallback, useState, useEffect } from "react";
-import { shallowEqual } from "react-redux";
-import { AppLoader } from "./components/AppLoader";
+import {ThemeProvider} from "emotion-theming";
+import React, {useCallback, useEffect, useState} from "react";
+import {shallowEqual} from "react-redux";
+import {AppLoader} from "./components/AppLoader";
 import {
   CatalogType,
   languageActions,
   loadLanguageCatalog,
-  selectedLanguage,
+  selectedLanguage
 } from "./features/language/language.slice";
-import { selectedLayoutTheme } from "./features/layout/layout.slice";
-import { loginWithToken } from "./features/login/login.slice";
+import {selectedLayoutTheme} from "./features/layout/layout.slice";
+import {loginWithToken} from "./features/login/login.thunks";
 import Routes from "./routes";
-import { history } from "./store/rootReducer";
-import { useAppDispatch, userAppSelector } from "./store/store";
+import {history} from "./store/rootReducer";
+import {useAppDispatch, userAppSelector} from "./store/store";
 import GlobalStyles from "./styles";
-import { ITheme } from "./utils/styled";
+import {ITheme} from "./utils/styled";
 
 const AppThemeProvider = (props: any) => ThemeProvider<ITheme>(props);
 

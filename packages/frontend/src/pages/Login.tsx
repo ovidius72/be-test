@@ -2,7 +2,7 @@ import React, {FC} from "react";
 import {Link} from "react-router-dom";
 import {Grid, Header, Menu, Message, Segment} from "semantic-ui-react";
 import LoginForm from "src/components/forms/LoginForm";
-import {loginThunk} from "src/features/login/login.slice";
+import {loginThunk} from "src/features/login/login.thunks";
 import {useAppDispatch, userAppSelector} from "src/store/store";
 
 const LoginPage: FC = () => {
