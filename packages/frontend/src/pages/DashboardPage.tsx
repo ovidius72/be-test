@@ -54,6 +54,7 @@ const DashboardPage: FC = () => {
               <Trans>Previsioni meteo prossimi 5 giorni</Trans>
             </Header>
             <Label color="red">TODO: Add dropdown with cities</Label>
+            <Label color="red">TODO: Add Unit tests</Label>
 
             <Grid padded columns={5} stackable>
               {w &&
