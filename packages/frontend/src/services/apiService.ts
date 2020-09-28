@@ -4,13 +4,17 @@ import {
   IOrderDetails,
   ITokenApiModel,
   IUserApi,
-  IUserLoginCredentials
+  IUserLoginCredentials,
 } from "src/entities/apiModels";
 
-import {Auth} from "src/services/auth";
-import {BASE_API_PATH, HTTP_MODE} from "src/services/constants";
+import { Auth } from "src/services/auth";
+import {
+  BASE_API_PATH,
+  HTTP_MODE,
+  WEATHER_API_KEY,
+} from "src/services/constants";
 import baseWretch from "wretch";
-import {Wretcher, WretcherOptions} from "wretch/dist/wretcher";
+import { Wretcher, WretcherOptions } from "wretch/dist/wretcher";
 // import { PaginatedResponse } from "src/store/common";
 // import { notUndefined, isNill } from "src/utils/appUtils";
 
@@ -20,7 +24,7 @@ const wretchDefaults: WretcherOptions = {
 };
 
 const wretchWithCorsOptions: WretcherOptions = {
-  mode: 'cors',
+  mode: "cors",
   credentials: "include",
   headers: { "Content-Type": "application/json" },
 };
@@ -37,6 +41,25 @@ export const apiUrlBuilder = (url: string, customToken?: string): Wretcher => {
   const tokenId = customToken ? customToken : token && token.id ? token.id : "";
   const appWretch = wretch.auth(tokenId).url(`${BASE_API_PATH}/${url}`);
   return appWretch;
+};
+
+export const weatherApiBuilder = (
+  name: string,
+  state?: string,
+  country?: string
+): Wretcher => {
+  let api = `http://api.openweathermap.org/data/2.5/forecast?q=${name}&lang=it&units=metric&cnt=5`;
+  if (state) {
+    api = `${api},${state}`;
+  }
+  if (country) {
+    api = `${api},${country}`;
+  }
+
+  api = `${api}&appid=${WEATHER_API_KEY}`;
+
+  const w = baseWretch().url("");
+  return w.url(api);
 };
 
 enum Paths {
@@ -93,7 +116,8 @@ const fromUsers = (...args: string[]) => pathFrom(Paths.users, ...args);
 // const fromSuppliers = (...args: string[]) => pathFrom(Paths.suppliers, ...args);
 // const fromShippers = (...args: string[]) => pathFrom(Paths.shippers, ...args);
 // const fromRegion = (...args: string[]) => pathFrom(Paths.region, ...args);
-const fromOrderDetails = (...args: string[]) => pathFrom(Paths.order_details, ...args);
+const fromOrderDetails = (...args: string[]) =>
+  pathFrom(Paths.order_details, ...args);
 // const fromCategories = (...args: string[]) =>
 //   pathFrom(Paths.categories, ...args);
 // const fromProducts = (...args: string[]) => pathFrom(Paths.products, ...args);
@@ -146,36 +170,47 @@ export const pickErrorWithFallback = (err: any, fallbackErrorText: string) => {
 
 // API ENDPOINTS
 export const endpoints = {
+  weather: {
+    getByCityName: (name: string, countryCode?: string, state?: string) =>
+      weatherApiBuilder(name, countryCode, state).get().json(),
+  },
+
   orderDetails: {
-    getByOrderId: (orderId: string) => apiUrlBuilder(fromOrderDetails())
-    .query(`filter[include]=product&filter[include]=order&filter[where][order_id]=${orderId}`)
-    .get()
-    .json<IOrderDetails[]>(),
+    getByOrderId: (orderId: string) =>
+      apiUrlBuilder(fromOrderDetails())
+        .query(
+          `filter[include]=product&filter[include]=order&filter[where][order_id]=${orderId}`
+        )
+        .get()
+        .json<IOrderDetails[]>(),
   },
   orders: {
-    getByUserId:  (customerErpId: string) => apiUrlBuilder(fromOrders())
-    .query(`filter[where][customer_id]=${customerErpId}`)
-    .get()
-    .json<IOrder[]>(),
+    getByUserId: (customerErpId: string) =>
+      apiUrlBuilder(fromOrders())
+        .query(`filter[where][customer_id]=${customerErpId}`)
+        .get()
+        .json<IOrder[]>(),
   },
   user: {
     getOne: (id: string, filters?: string) =>
       apiUrlBuilder(fromUsers(id))
-      .query(filters || '')
-      .get()
-      .json<IUserApi>(),
+        .query(filters || "")
+        .get()
+        .json<IUserApi>(),
 
     getAll: () => apiUrlBuilder(fromUsers()).get().json<IUserApi[]>(),
 
     login: (data: IUserLoginCredentials) => {
-      return apiUrlBuilder(fromUsers('login')).post(data).json<ITokenApiModel>()
+      return apiUrlBuilder(fromUsers("login"))
+        .post(data)
+        .json<ITokenApiModel>();
     },
 
     // logout the user with the passed inline token
     logout: async (): Promise<boolean> =>
       apiUrlBuilder(fromUsers("logout"))
         .post()
-        .res(res => {
+        .res((res) => {
           return res.ok && res.status === 204;
         }),
   },
@@ -189,4 +224,4 @@ export const endpoints = {
 };
 
 export type ApiEndpointsType = typeof endpoints;
-export {endpoints as ApiService};
+export { endpoints as ApiService };

@@ -45,7 +45,7 @@ const OrderDetailsPage: FC = () => {
             errorMessage={error}
           >
             {order && (
-              <Segment size="tiny" basic placeholder>
+              <Segment inverted size="tiny" placeholder>
                 <Header icon>
                   <Icon name="user circle outline" />
                   <Trans>Order Date</Trans>:{" "}
@@ -60,7 +60,7 @@ const OrderDetailsPage: FC = () => {
                 </Segment.Inline>
               </Segment>
             )}
-            <Table celled>
+            <Table celled striped>
               <Table.Header>
                 <Table.Row>
                   <Table.HeaderCell>
@@ -82,8 +82,8 @@ const OrderDetailsPage: FC = () => {
               </Table.Header>
 
               <Table.Body>
-                {orderDetails.map((d) => (
-                  <Table.Row key={`${d.order_id}-${d.discount}`}>
+                {orderDetails.map((d, i) => (
+                  <Table.Row key={`${i}-${d.order_id}-${d.discount}`}>
                     <Table.Cell>
                       {d.product ? d.product.name : "N.A."}
                     </Table.Cell>
