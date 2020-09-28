@@ -1,0 +1,96 @@
+{
+  "name": "employees",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "id": {
+      "type": "number",
+      "id": true,
+      "required": true,
+      "postgresql": {
+        "columnName": "employee_id"
+      }
+    },
+    "lastName": {
+      "type": "string",
+      "required": true,
+      "postgresql": {
+        "columnName": "last_name"
+      }
+    },
+    "firstName": {
+      "type": "string",
+      "required": true,
+      "postgresql": {
+        "columnName": "first_name"
+      }
+    },
+    "title": {
+      "type": "string"
+    },
+    "titleOfCourtesy": {
+      "type": "string",
+      "postgresql": {
+        "columnName": "title_of_courtesy"
+      }
+    },
+    "birthDate": {
+      "type": "date",
+      "postgresql": {
+        "columnName": "birth_date"
+      }
+    },
+    "hireDate": {
+      "type": "date",
+      "postgresql": {
+        "columnName": "hire_date"
+      }
+    },
+    "address": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "region": {
+      "type": "string"
+    },
+    "postalCode": {
+      "type": "string",
+      "postgresql": {
+        "columnName": "postal_code"
+      }
+    },
+    "country": {
+      "type": "string"
+    },
+    "homePhone": {
+      "type": "string",
+      "postgresql": {
+        "columnName": "home_phone"
+      }
+    },
+    "extension": {
+      "type": "string"
+    },
+    "photo": {
+      "type": "any"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "reports_to": {
+      "type": "number"
+    },
+    "photo_path": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

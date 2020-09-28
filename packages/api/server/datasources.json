@@ -1,0 +1,26 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "erp": {
+    "host": "be_erpdb",
+    "port": 5432,
+    "url": "",
+    "database": "Northwind",
+    "password": "secret",
+    "name": "erp",
+    "user": "dbUser",
+    "connector": "postgresql"
+  },
+  "MongoDB": {
+    "host": "be_mongodb",
+    "port": 27017,
+    "database": "be",
+    "password": "secret",
+    "name": "MongoDB",
+    "user": "dbUser",
+    "connector": "mongodb",
+    "authSource": "admin"
+  }
+}

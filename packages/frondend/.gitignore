@@ -1,0 +1,5 @@
+build/
+locale/
+node_modules/
+coverage/
+.history/

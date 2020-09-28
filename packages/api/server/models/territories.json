@@ -1,0 +1,43 @@
+{
+  "name": "territories",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "id": {
+      "type": "string",
+      "id": true,
+      "postgresql": {
+        "columnName": "territory_id"
+      }
+    },
+    "description": {
+      "type": "string",
+      "postgresql": {
+        "columnName": "territory_description"
+      }
+    },
+    "region_id": {
+      "type": "number",
+      "postgresql": {
+        "columnName": "region_id"
+      }
+    }
+  },
+  "validations": [],
+  "relations": {
+    "region": {
+      "type": "hasOne",
+      "model": "region",
+      "foreignKey": "region_id",
+      "primaryKey": "region_id",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

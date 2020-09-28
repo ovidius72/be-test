@@ -1,0 +1,90 @@
+version: '3.1'
+services:
+
+  erp-db:
+    image: postgres:10-alpine
+    container_name: be_erpdb
+    volumes:
+      - ./data/db/init-postgres.sql:/docker-entrypoint-initdb.d/init.sql
+      - erpVOL:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      - mynetwork
+    environment:
+      POSTGRES_USER: dbUser
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: Northwind
+
+  mongo-db:
+    image: mongo:4.2.1
+    container_name: be_mongodb
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: dbUser
+      MONGO_INITDB_ROOT_PASSWORD: secret
+      MONGO_INITDB_DATABASE: be
+    networks:
+      - mynetwork
+    restart: unless-stopped
+    volumes:
+      - mongoVOL:/data/db
+
+  adminer:
+    image: adminer
+    container_name: be_adminer
+    restart: always
+    networks: 
+      - mynetwork
+    depends_on:
+      - erp-db
+      - mongo-db
+    environment:
+      ADMINER_DEFAULT_DB_DRIVER: pgsql
+      ADMINER_DEFAULT_DB_HOST: postgres
+      ADMINER_DEFAULT_DB_NAME: Northwind
+    ports:
+      - 8080:8080
+
+  api:
+    container_name: be_api-dev
+    depends_on:
+      - erp-db
+      - mongo-db
+    networks:
+      - mynetwork
+    build:
+      context: .
+      dockerfile: docker/api/dev/Dockerfile
+    volumes:
+      - './packages/api:/app'
+      - '/app/node_modules'
+    ports:
+      - 3000:3000
+
+  frontend:
+    container_name: be_frontend-dev
+    networks:
+      - mynetwork
+    depends_on:
+      - api
+    build:
+      context: .
+      dockerfile: docker/frontend/dev/Dockerfile 
+    volumes:
+      - './packages/frondend:/app'
+      - '/app/node_modules'
+    ports: 
+      - 8888:8888
+    environment:
+      - CHOKIDAR_USEPOLLING=tre
+    stdin_open: true
+    tty: true
+    command: sh -c 'npm install && npm start'
+
+networks:
+  mynetwork:
+volumes:
+  erpVOL:
+  mongoVOL:

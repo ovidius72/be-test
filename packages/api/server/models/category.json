@@ -1,0 +1,37 @@
+{
+  "name": "category",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "postgresql": {
+    "tableName": "categories"
+  },
+  "properties": {
+    "id": {
+      "type": "number",
+      "id": true,
+      "required": true,
+      "postgresql": {
+        "columnName": "category_id"
+      }
+    },
+    "name": {
+      "type": "string",
+      "postgresql": {
+        "columnName": "category_name"
+      }
+    },
+    "description": {
+      "type": "string"
+    },
+    "picture": {
+      "type": "buffer"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

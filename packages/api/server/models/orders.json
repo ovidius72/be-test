@@ -1,0 +1,89 @@
+{
+  "name": "orders",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "order_id": {
+      "type": "number",
+      "id": true,
+      "required": true,
+      "postgresql": {
+        "columnName": "order_id"
+      }
+    },
+    "customer_id": {
+      "type": "string"
+    },
+    "employee_id": {
+      "type": "number"
+    },
+    "order_date": {
+      "type": "date"
+    },
+    "required_date": {
+      "type": "date"
+    },
+    "shipped_date": {
+      "type": "date"
+    },
+    "ship_via": {
+      "type": "number"
+    },
+    "freight": {
+      "type": "number"
+    },
+    "ship_name": {
+      "type": "string"
+    },
+    "ship_address": {
+      "type": "string"
+    },
+    "ship_city": {
+      "type": "string"
+    },
+    "ship_region": {
+      "type": "string"
+    },
+    "ship_postal_code": {
+      "type": "string"
+    },
+    "ship_country": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "customer": {
+      "type": "hasOne",
+      "model": "customer",
+      "foreignKey": "customer_id",
+      "primaryKey": "customer_id",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "employee": {
+      "type": "hasOne",
+      "model": "employees",
+      "foreignKey": "employee_id",
+      "primaryKey": "employee_id",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "shipper": {
+      "type": "hasOne",
+      "model": "shippers",
+      "foreignKey": "shipper_id",
+      "primaryKey": "ship_via",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

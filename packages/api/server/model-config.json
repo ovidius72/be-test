@@ -1,0 +1,99 @@
+{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
+    ]
+  },
+  "User": {
+    "dataSource": "db",
+    "public": false
+  },
+  "AccessToken": {
+    "dataSource": "db",
+    "public": false
+  },
+  "ACL": {
+    "dataSource": "MongoDB",
+    "public": false
+  },
+  "RoleMapping": {
+    "dataSource": "MongoDB",
+    "public": false,
+    "options": {
+      "strictObjectIDCoercion": true
+    }
+  },
+  "Role": {
+    "dataSource": "MongoDB",
+    "public": false
+  },
+  "user": {
+    "dataSource": "MongoDB",
+    "public": true
+  },
+  "customer": {
+    "dataSource": "erp",
+    "public": true
+  },
+  "category": {
+    "dataSource": "erp",
+    "public": true
+  },
+  "employees": {
+    "dataSource": "erp",
+    "public": true
+  },
+  "territories": {
+    "dataSource": "erp",
+    "public": true
+  },
+  "region": {
+    "dataSource": "erp",
+    "public": true
+  },
+  "us_states": {
+    "dataSource": "erp",
+    "public": true
+  },
+  "suppliers": {
+    "dataSource": "erp",
+    "public": true
+  },
+  "shippers": {
+    "dataSource": "erp",
+    "public": true
+  },
+  "products": {
+    "dataSource": "erp",
+    "public": true
+  },
+  "orders": {
+    "dataSource": "erp",
+    "public": true
+  },
+  "order_details": {
+    "dataSource": "erp",
+    "public": true
+  },
+  "employee_territories": {
+    "dataSource": "erp",
+    "public": true
+  },
+  "userCities": {
+    "dataSource": "MongoDB",
+    "public": true
+  },
+  "city": {
+    "dataSource": "MongoDB",
+    "public": true
+  }
+}

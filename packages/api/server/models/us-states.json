@@ -1,0 +1,30 @@
+{
+  "name": "us_states",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "id": {
+      "type": "number",
+      "id": true,
+      "postgresql": {
+        "columnName": "state_id"
+      }
+    },
+    "state_name": {
+      "type": "string"
+    },
+    "state_abbr": {
+      "type": "string"
+    },
+    "state_region": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

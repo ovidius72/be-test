@@ -1,0 +1,15 @@
+{
+    "fallbackLocale": "en",
+    "sourceLocale": "en",
+    "srcPathDirs": [
+      "./src"
+    ],
+    "srcPathIgnorePatterns": [
+      "/node_modules/",
+      "/public/",
+      ".history",
+      ".vscode"
+    ],
+    "format": "lingui",
+    "localeDir": "./locale"
+}

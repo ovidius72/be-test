@@ -1,0 +1,75 @@
+{
+  "name": "products",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "id": {
+      "type": "number",
+      "id": true,
+      "postgresql": {
+        "columnName": "product_id"
+      }
+    },
+    "name": {
+      "type": "string",
+      "required": true,
+      "postgresql": {
+        "columnName": "product_name"
+      }
+    },
+    "supplier_id": {
+      "type": "number"
+    },
+    "category_id": {
+      "type": "number"
+    },
+    "quantity_per_unit": {
+      "type": "string"
+    },
+    "price": {
+      "type": "number",
+      "required": true,
+      "postgresql": {
+        "columnName": "unit_price"
+      }
+    },
+    "units_in_stock": {
+      "type": "number"
+    },
+    "units_on_order": {
+      "type": "number"
+    },
+    "reorder_level": {
+      "type": "number"
+    },
+    "discontinued": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "category": {
+      "type": "hasOne",
+      "model": "category",
+      "foreignKey": "category_id",
+      "primaryKey": "category_id",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "supplier": {
+      "type": "hasOne",
+      "model": "suppliers",
+      "foreignKey": "supplier_id",
+      "primaryKey": "supplier_id",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

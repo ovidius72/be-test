@@ -1,0 +1,52 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "modules": false,
+        "targets": "> 0.25%, not dead",
+        "corejs": "3.6.5",
+        "useBuiltIns": "entry"
+      }
+    ],
+    "@babel/preset-typescript",
+    "@babel/preset-react",
+    "@emotion/babel-preset-css-prop",
+    "@lingui/babel-preset-react"
+  ],
+  "plugins": [
+    ["@babel/plugin-proposal-decorators", {"legacy": true}],
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-export-default-from",
+    "@babel/plugin-proposal-object-rest-spread",
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/plugin-transform-runtime",
+    "babel-plugin-emotion",
+    "macros"
+  ],
+  "env": {
+    "lingui": {
+      "presets": [
+        ["@babel/preset-env"],
+        "@emotion/babel-preset-css-prop",
+        "@babel/preset-react",
+        "@lingui/babel-preset-react"
+      ],
+      "plugins": [
+        [
+          "@babel/plugin-proposal-decorators",
+          {
+            "legacy": true
+          }
+        ],
+        "@babel/plugin-proposal-export-default-from",
+        "@babel/plugin-syntax-dynamic-import",
+        "@babel/plugin-proposal-class-properties",
+        "@babel/plugin-transform-runtime",
+        "@babel/plugin-proposal-object-rest-spread",
+        "babel-plugin-emotion",
+        "macros"
+      ]
+    }
+  }
+}
